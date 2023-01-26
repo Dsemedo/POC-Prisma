@@ -1,13 +1,25 @@
 import prisma from "../config/database.js";
-import { userType } from "../protocols/protocol.js";
+import { NewUser, User, UserEntity } from "../protocols/protocol.js";
 
- async function insertUser(username: userType) {
-    return [];
+ async function insertUser(user: User) {
+    return prisma.users.create({
+        data: user  
+    })
 };
+
+async function upsert(user: NewUser) {
+    return prisma.users.upsert({
+        where: {
+            id: user.id || 0,
+        },
+        create: user as User,
+        update: user,
+    })
+}
 
  async function toUpdateUser(id: string, status: boolean ){
     return [];
-    testeee
+    
 }
 
 async function toDeleteUser(id: string) {
@@ -24,4 +36,4 @@ async function getOnlyUsersWhoBeted() {
 }
 
 
-export {insertUser, toUpdateUser,getAllUsers, getOnlyUsersWhoBeted, toDeleteUser}
+export {insertUser, upsert,getAllUsers, getOnlyUsersWhoBeted, toDeleteUser}

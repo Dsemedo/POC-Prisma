@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
-import { userType } from '../protocols/protocol.js';
-import { getAllUsers, insertUser, toUpdateUser } from '../repositories/user.repository.js';
+import { UserEntity, User, NewUser } from '../protocols/protocol.js';
+import { getAllUsers, insertUser, upsert } from '../repositories/user.repository.js';
 
 async function getUser(req: Request, res: Response){
     
@@ -10,32 +10,27 @@ async function getUser(req: Request, res: Response){
 }
 
  async function postUser(req: Request, res: Response): Promise<void> {
-    const newUser = req.body as userType
+    const newUser = req.body as NewUser;
 
     console.log(req.body);
 
-//    try{
-    const insertedUser = await insertUser(newUser);
 
-    res.status(201).send(insertedUser);
+    const insertedUser = await upsert(newUser);
 
-//    } catch(err){
-//     console.log(err.detail);
-//    }
-
+    res.status(201).send(`User inserido ${insertedUser}`);
 }
 
-async function updateUser(req: Request, res: Response) {
-    const {id} = req.params;
+// async function updateUser(req: Request, res: Response) {
+//     const {id} = req.params;
 
-    try{
-       await toUpdateUser(id, true);
+//     try{
+//        await toUpdateUser(id, true);
 
-       res.sendStatus(204);
-    }catch(err){
-        res.send(err.message);
-    }
-}
+//        res.sendStatus(204);
+//     }catch(err){
+//         res.send(err.message);
+//     }
+// }
 
 async function deleteUser(req: Request, res: Response) {
     const {id} = req.params;
@@ -62,14 +57,7 @@ async function getUsersWhoBeted(req: Request, res: Response){
 }
 
 
-export { getUser, postUser, updateUser, deleteUser, getUsersWhoBeted };
-
-
-// CREATE TABLE "users" (
-// 	"id" serial NOT NULL PRIMARY KEY,
-// 	"username" text NOT NULL UNIQUE,
-// 	"beted" BOOLEAN NOT NULL DEFAULT 'false'
-// );
+export { getUser, postUser, deleteUser, getUsersWhoBeted };
 
 
 
