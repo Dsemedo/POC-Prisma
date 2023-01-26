@@ -27,5 +27,13 @@
     "express": "^4.18.2",
     "joi": "^17.7.0",
     "pg": "^8.8.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dsemedo/Poc-Prisma.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dsemedo/Poc-Prisma/issues"
+  },
+  "homepage": "https://github.com/Dsemedo/Poc-Prisma#readme"
 }
