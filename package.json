@@ -9,7 +9,7 @@
     "prisma:seed": "npx prisma db seed",
     "dev": "npx nodemon src/app.ts"
   },
-  "prisma":{
+  "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],

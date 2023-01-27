@@ -3,11 +3,24 @@ import prisma from "../src/config/database.js";
 async function main(){
     await prisma.users.createMany({
 data: [
-    {"name": "Lucas" },
-    {"name": "Juan"},
+    {"name": "Douglas"},
+    {"name": "Nathan"},
     {"name": "Jeff"}
 ]
     })
+
+    await prisma.seats.createMany({
+        data: [
+            {"isAvaliable": true},
+            {"isAvaliable": true},
+            {"isAvaliable": true},
+            {"isAvaliable": true},
+            {"isAvaliable": true},
+            {"isAvaliable": true},
+            {"isAvaliable": true},
+            {"isAvaliable": true},
+        ]
+            })
 }
 
 main()

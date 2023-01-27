@@ -1,7 +1,12 @@
 import prisma from "../config/database.js";
-import { NewUser, User, UserEntity } from "../protocols/protocol.js";
+import { NewUser, User } from "../protocols/protocol.js";
 
- async function insertUser(user: User) {
+
+async function getAllUsers() {
+    return prisma.users.findMany();
+}
+
+async function insertUser(user: User) {
     return prisma.users.create({
         data: user  
     })
@@ -17,23 +22,10 @@ async function upsert(user: NewUser) {
     })
 }
 
- async function toUpdateUser(id: string, status: boolean ){
-    return [];
-    
-}
 
 async function toDeleteUser(id: string) {
     // return await connectionDb.query(`DELETE FROM users WHERE id=$1`, [id]);
 }
 
-async function getAllUsers() {
-    return prisma.users.findMany();
-}
 
-
-async function getOnlyUsersWhoBeted() {
-    // return await connectionDb.query('SELECT * FROM users WHERE beted=$1', [true]);
-}
-
-
-export {insertUser, upsert,getAllUsers, getOnlyUsersWhoBeted, toDeleteUser}
+export {insertUser, upsert, getAllUsers, toDeleteUser}
