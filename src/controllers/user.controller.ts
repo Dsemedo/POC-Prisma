@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import { UserEntity, User, NewUser } from '../protocols/protocol.js';
+import {  NewUser } from '../protocols/protocol.js';
 import { getAllUsers, upsert } from '../repositories/user.repository.js';
 
 async function getUser(req: Request, res: Response){
@@ -46,7 +46,7 @@ export { getUser, postUser, deleteUser };
 // data: [
 //     {"name": "Douglas"},
 //     {"name": "Nathan"},
-//     {"name": "Jeff"}
+//     {"name": "Fernando"}
 // ]
 //     })
 

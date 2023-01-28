@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import {updateOnlySeat, getAllSeats} from "../repositories/seats.repository.js";
-import {SeatEntity, NewSeat, Seat} from "../protocols/protocol.js"
+import { createOrders } from '../repositories/orders.repository.js';
+import {SeatEntity} from "../protocols/protocol.js"
 
 
 
@@ -13,12 +14,24 @@ async function getSeats(req: Request, res: Response){
 
 async function updateSeat(req: Request, res: Response): Promise<void> {
     const seatStatus = req.body as SeatEntity
+    
+    try{
+      await updateOnlySeat(seatStatus);
+      await createOrders(seatStatus);
 
-    const toUpdateUser = await updateOnlySeat(seatStatus);
+      res.sendStatus(200);
+    }catch(e){
+      console.log(e);
+    res.sendStatus(400);
+    }     
 
-    res.status(201).send(`Seu lugar foi reservado ${toUpdateUser}`);
 }
 
+// async function getOrders(req: Request, res: Response){
+//     const resultado = await getAllOrders();
+
+//   return res.send(resultado)
+// }
 
 export { getSeats, updateSeat};
 
@@ -30,7 +43,7 @@ export { getSeats, updateSeat};
 
 // CREATE TABLE orders (
 // 	"id" serial NOT NULL PRIMARY KEY,
-// 	"userId" integer NOT NULL REFERENCES users(id),
+// 	"buyerName" text NOT NULL REFERENCES users(name),
 // 	"seatId" integer NOT NULL REFERENCES seats(id)
 // );
 

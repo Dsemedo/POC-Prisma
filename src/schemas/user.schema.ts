@@ -4,4 +4,5 @@ const userSchema = Joi.object({
     name: Joi.string().required(),
 })
 
+
 export default userSchema;

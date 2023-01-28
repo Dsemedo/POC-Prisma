@@ -8,11 +8,11 @@ datasource db {
 }
 
 model orders {
-  id     Int   @id @default(autoincrement())
-  userId Int
-  seatId Int
-  seats  seats @relation(fields: [seatId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users  users @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id        Int    @id @default(autoincrement())
+  buyerName String
+  seatId    Int
+  users     users  @relation(fields: [buyerName], references: [name], onDelete: NoAction, onUpdate: NoAction)
+  seats     seats  @relation(fields: [seatId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model seats {

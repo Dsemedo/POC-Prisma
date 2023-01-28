@@ -16,3 +16,11 @@ export type SeatEntity = {
 export type Seat = Omit<UserEntity, "id">;
 
 export type NewSeat = Partial<SeatEntity>
+
+export type OrderEntity = {
+    id: number,
+    buyerName: string,
+    seatId: number
+}
+
+export type NewOrder = Partial<OrderEntity>

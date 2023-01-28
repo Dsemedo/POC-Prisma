@@ -5,7 +5,7 @@ async function main(){
 data: [
     {"name": "Douglas"},
     {"name": "Nathan"},
-    {"name": "Jeff"}
+    {"name": "Fernando"}
 ]
     })
 
