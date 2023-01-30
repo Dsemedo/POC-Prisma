@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {  NewUser } from '../protocols/protocol.js';
-import { getAllUsers, upsert } from '../repositories/user.repository.js';
+import { getAllUsers, toDeleteUser, upsert } from '../repositories/user.repository.js';
 
 async function getUser(req: Request, res: Response){
     
@@ -14,19 +14,19 @@ async function getUser(req: Request, res: Response){
 
     console.log(req.body);
 
-    const insertedUser = await upsert(newUser);
+    await upsert(newUser);
 
-    res.status(201).send(`User inserted ${insertedUser}`);
+    res.status(201).send(`User inserted!`);
 }
 
 
 async function deleteUser(req: Request, res: Response) {
     const {id} = req.params;
 
-    try{
-    //    await connectionDb.query(`DELETE FROM users WHERE id=$1`, [id]);
+    try{        
+        await toDeleteUser(Number(id));
 
-       res.status(200).send("Usuario deletado com sucesso!")
+       res.status(200).send(`User deleted with success!`)
 
     }catch(err){
         console.log(err);

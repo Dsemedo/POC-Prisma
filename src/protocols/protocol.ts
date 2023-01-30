@@ -24,3 +24,8 @@ export type OrderEntity = {
 }
 
 export type NewOrder = Partial<OrderEntity>
+
+export type ApplicationError = {
+    name: string;
+    message: string;
+};

@@ -6,5 +6,3 @@ export const seatsRoute = Router();
 seatsRoute.get("/seats", getSeats)
 
 seatsRoute.patch("/seats", validateUpdatingSeat, updateSeat);
-
-// seatsRoute.get("/orders", getOrders)

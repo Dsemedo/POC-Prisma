@@ -1,29 +1,34 @@
-import {Request, Response} from 'express';
-import {updateOnlySeat, getAllSeats} from "../repositories/seats.repository.js";
+import { Request, Response } from 'express';
+import { updateOnlySeat, getAllSeats } from "../repositories/seats.repository.js";
 import { createOrders } from '../repositories/orders.repository.js';
-import {SeatEntity} from "../protocols/protocol.js"
+import { SeatEntity } from "../protocols/protocol.js"
+import { notFoundError } from '../errors/not-found-errors.js';
 
 
 
-async function getSeats(req: Request, res: Response){
-      const resultado = await getAllSeats();
+async function getSeats(req: Request, res: Response) {
+  const resultado = await getAllSeats();
 
-    return res.send(resultado)
+  return res.send(resultado)
 }
 
 
-async function updateSeat(req: Request, res: Response): Promise<void> {
-    const seatStatus = req.body as SeatEntity
-    
-    try{
-      await updateOnlySeat(seatStatus);
-      await createOrders(seatStatus);
+async function updateSeat(req: Request, res: Response) {
+  const seatStatus = req.body as SeatEntity
 
-      res.sendStatus(200);
-    }catch(e){
-      console.log(e);
-    res.sendStatus(400);
-    }     
+  try {
+    await updateOnlySeat(seatStatus);
+    await createOrders(seatStatus);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    if (e.name === "ConflictError") {
+      res.sendStatus(409)
+    }
+    if (e.name === "NotFoundError") {
+      res.sendStatus(404);
+    }
+  }
 
 }
 
@@ -33,7 +38,7 @@ async function updateSeat(req: Request, res: Response): Promise<void> {
 //   return res.send(resultado)
 // }
 
-export { getSeats, updateSeat};
+export { getSeats, updateSeat };
 
 // CREATE TABLE users (
 // 	"id" serial NOT NULL PRIMARY KEY,

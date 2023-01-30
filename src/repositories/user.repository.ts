@@ -23,8 +23,13 @@ async function upsert(user: NewUser) {
 }
 
 
-async function toDeleteUser(id: string) {
-    // return await connectionDb.query(`DELETE FROM users WHERE id=$1`, [id]);
+async function toDeleteUser(id: number) {
+    return prisma.users.delete({
+        where: {
+            id: id
+        }
+    })
+
 }
 
 

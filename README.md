@@ -1,10 +1,10 @@
 # POC-Prisma
 
-Basic Back-end project for a Typescript POC.
+Basic Back-end project for a Prisma POC.
 
 ## About
 
-That project has a unique table to organized users who was beted on soccer games.
+That project has a purpose to organized a seats than was/will reserved in a event, with a basic register that requires only a name.
 
 ## How to run for development
 
@@ -26,27 +26,39 @@ npm run dev
 ## How to use a project
 
 ```bash
-Post: /user
-body: {"username": "seu_username"}
+Route User
+
+Post: /users
+body: {
+    "name": "your_name"
+    }
 Used to create a new user
-```
 
-```bash
-Get: /user
+Get: /users
 Used to show all users
+
+Delete: /users/:id
+Used to delete a user on database
 ```
 
 ```bash
-Get: /user/bets
-Used to show all users has beted
+Route Seats
+
+Get: /seats
+Used to show all seats and his status
+
+Patch: /seats
+body: {
+    "id": "seat_id",
+    "isAvaliable": "status_of_seat",
+    "owner": "name_of_user"
+    }
+Used to reserved a seat, only works if you had registrate a name on Post: /users
 ```
 
 ```bash
-Delete: /user/:id
-Used to delete that user
-```
+Route Orders
 
-```bash
-Patch: /user/:id
-Used to change status of user to beted = true
+Get: /orders
+Used to show all orders
 ```
